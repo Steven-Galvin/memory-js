@@ -9,9 +9,29 @@ $(document).ready(function() {
     $(this).append("<img class='card-front' id='" + card + "' src='img/" + card + ".png'>")
   });
   $(".card").click(function() {
-    $(this).find(".card-back").toggle();
-    $(this).find(".card-front").toggle();
+    $('.card').each(function() {
+      var card = $(this).find(".card-front").attr("id");
+      if (memory.unmatchedCards.includes(card)) {
+        $(this).find(".card-back").show();
+        $(this).find(".card-front").hide();
+      }
+      if (!memory.unmatchedCards.includes(card)) {
+        $(this).find(".card-back").hide();
+        $(this).find(".card-front").show();
+      }
+    });
+
+    $(this).find(".card-back").hide();
+    $(this).find(".card-front").show();
+
     var card = $(this).find(".card-front").attr("id");
-    console.log(card)
+    memory.buildPair(card)
+    if (memory.isMatch(memory.pair) === true) {
+      var index = memory.unmatchedCards.indexOf(card);
+      if (index > -1) {
+        memory.unmatchedCards.splice(index, 1);
+      };
+    };
+
   });
 });
