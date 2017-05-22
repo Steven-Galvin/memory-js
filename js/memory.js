@@ -1,19 +1,11 @@
+var shuffle = require("knuth-shuffle").knuthShuffle
+
+
 function Memory() {
   this.cards = []
+  this.pair = []
+  this.deck = shuffle(["JS", "QS", "KS", "JH", "QH", "KH", "JS", "QS", "KS", "JH", "QH", "KH"])
 }
-
-Memory.prototype.deck = function() {
-  return ["JS", "QS", "KS", "JH", "QH", "KH"]
-};
-
-Memory.prototype.card = function() {
-  var card = this.deck.random
-  if (usedCards.include(card)) {
-    this.card()
-  } else {
-    this.cards.push(card)
-  }
-};
 
 Memory.prototype.usedCards = function () {
   return this.cards
@@ -26,3 +18,6 @@ Memory.prototype.isMatch = function (card1, card2) {
     return false;
   }
 };
+
+
+exports.memoryModule = Memory;
